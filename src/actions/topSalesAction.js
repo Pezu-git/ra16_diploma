@@ -8,7 +8,6 @@ export const topSalesRequest = () => async (dispatch) => {
   dispatch(topSalesRequestStarted());
   try {
     const data = await createTopSales();
-    console.log(data)
     dispatch(topSalesRequestSuccess(data));
   } catch (e) {
     const detailedError = JSON.parse(e.message);

@@ -10,15 +10,18 @@ import { catalogRequest } from '../../actions/catalogAction';
 import { catalogAndCategoriesRequest } from '../../actions/categoriesAction';
 import { searchTextStatus } from '../../actions/searchAction';
 import { useHistory } from 'react-router';
+var qs = require('qs');
 
 export default function Catalog(props) {
+  const history = useHistory();
+  const parsed = qs.parse(history.location.search.substr(1))
   const { searchSupport } = props;
   const categoriesState = useSelector((state) => state.categoriesReducer);
   const catalogState = useSelector((state) => state.catalogReducer);
   const searchState = useSelector((state) => state.searchReducer);
-  const searchText = searchSupport ? searchState.search : '';
+  const searchText = searchSupport ? searchState.search : parsed.query;
   const dispatch = useDispatch();
-  const history = useHistory();
+  
 
   async function getCatalog(categoryId, offset = 0) {
     dispatch(catalogRequest(searchText, categoryId, offset));
@@ -34,17 +37,13 @@ export default function Catalog(props) {
       return s.title;
     }
   };
-  console.log(String(findCat(categoriesState.activeCategory)));
-
-  useEffect(() => {
-    history.push({
-      pathname: `${history.location.pathname}`,
-      search: `?q=${searchState.search}&category=${findCat(categoriesState.activeCategory)}`
-    })
-    // debugger;
-  }, [searchState, categoriesState]);
-  
-//! 
+  function findCatId(a) {
+    let s = categoriesState.categoriesData.find((o) => o.title === a)
+    if (s !== undefined) {
+      return s.id;
+    }
+  };
+  //! 
   useEffect(() => {
     getCatalogAndCategories(categoriesState.activeCategory);
   }, [dispatch]);

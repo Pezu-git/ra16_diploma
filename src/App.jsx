@@ -14,12 +14,13 @@ import Page404 from './components/404/404';
 import Footer from './components/Footer/Footer';
 import './css/style.css';
 import './App.css';
+import History from './components/History/History';
 
 
 function App() {
   return (
     <Provider store={store}>
-      <Router>
+      <Router history={History}>
         <Header />
         <main className="container">
           <div className="row">
