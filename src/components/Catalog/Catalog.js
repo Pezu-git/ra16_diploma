@@ -19,8 +19,9 @@ export default function Catalog(props) {
   const categoriesState = useSelector((state) => state.categoriesReducer);
   const catalogState = useSelector((state) => state.catalogReducer);
   const searchState = useSelector((state) => state.searchReducer);
-  const searchText = searchSupport ? searchState.search : parsed.query;
+  const searchText = searchSupport ? searchState.search : '';
   const dispatch = useDispatch();
+  console.log(parsed)
   
 
   async function getCatalog(categoryId, offset = 0) {
