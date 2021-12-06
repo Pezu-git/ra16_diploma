@@ -9,21 +9,20 @@ import List from '../List/List';
 import { catalogRequest } from '../../actions/catalogAction';
 import { catalogAndCategoriesRequest } from '../../actions/categoriesAction';
 import { searchTextStatus } from '../../actions/searchAction';
-import { useHistory } from 'react-router';
+import { useHistory } from 'react-router-dom';
 var qs = require('qs');
 
 export default function Catalog(props) {
-  const history = useHistory();
-  const parsed = qs.parse(history.location.search.substr(1))
-  const { searchSupport } = props;
+  
+  const { searchSupport} = props;
   const categoriesState = useSelector((state) => state.categoriesReducer);
   const catalogState = useSelector((state) => state.catalogReducer);
   const searchState = useSelector((state) => state.searchReducer);
   const searchText = searchSupport ? searchState.search : '';
   const dispatch = useDispatch();
-  console.log(parsed)
-  
-
+  const history = useHistory();
+  const parsed = qs.parse(history.location.search.substr(1));
+      
   async function getCatalog(categoryId, offset = 0) {
     dispatch(catalogRequest(searchText, categoryId, offset));
   }
@@ -31,28 +30,29 @@ export default function Catalog(props) {
   async function getCatalogAndCategories(categoryId, offset = 0) {
     dispatch(catalogAndCategoriesRequest(searchText, categoryId, offset));
   }
-//!
-  function findCat(a) {
-    let s = categoriesState.categoriesData.find((o) => o.id === a)
-    if (s !== undefined) {
-      return s.title;
-    }
-  };
-  function findCatId(a) {
-    let s = categoriesState.categoriesData.find((o) => o.title === a)
-    if (s !== undefined) {
-      return s.id;
-    }
-  };
-  //! 
-  useEffect(() => {
-    getCatalogAndCategories(categoriesState.activeCategory);
+  
+  // function findCatId(a) {
+  //   let s = categoriesData.find((o) => o.title === a)
+  //     if (s !== undefined) {
+  //       return s.id
+  //     } 
+  // };
+
+  useEffect(() => {   
+    if(parsed.query!==undefined && parsed.query!=='') {
+      dispatch(searchTextStatus(parsed.query, true));
+    } 
+    if(parsed.category!==undefined && parsed.category!=='') {
+      getCatalogAndCategories(Number(parsed.category));
+    } else {
+      getCatalogAndCategories(0);
+    }    
   }, [dispatch]);
 
   useEffect(() => {
     if (searchState.searchStatus) {
-      getCatalog(categoriesState.activeCategory);
-      dispatch(searchTextStatus(searchState.search, false));
+        getCatalog(parsed.category);
+        dispatch(searchTextStatus(parsed.query, false)); 
     }
   }, [searchState.searchStatus]);
 

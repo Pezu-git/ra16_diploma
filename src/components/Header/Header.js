@@ -16,7 +16,9 @@ export default function Header() {
   const [searchVisible, setSearchVisible] = useState(true);
   const [form, setForm] = useState(DEFAULT_FORM_VALUE);
   const history = useHistory();
+  const categoriesState = useSelector((state) => state.categoriesReducer);
 
+  
   const searchVisibleClass = classnames({
     'form-inline': true,
     invisible: searchVisible,
@@ -28,7 +30,10 @@ export default function Header() {
       dispatch(activeCategory(0));
       dispatch(searchTextStatus(form.search, true));
       setForm(DEFAULT_FORM_VALUE);
-      history.push('/catalog');
+      history.push({
+        pathname: `/catalog`,
+        search: `?query=${form.search}&category=${categoriesState.activeCategory}`
+      })
       setSearchVisible(false);
     } else setSearchVisible(!searchVisible);
   };
@@ -52,7 +57,7 @@ export default function Header() {
                   <NavLink className="nav-link" exact to="/">Главная</NavLink>
                 </li>
                 <li className="nav-item">
-                  <NavLink className="nav-link" to="/catalog">Каталог</NavLink>
+                  <NavLink className="nav-link" to={`/catalog`}>Каталог</NavLink>
                 </li>
                 <li className="nav-item">
                   <NavLink className="nav-link" to="/about">О магазине</NavLink>

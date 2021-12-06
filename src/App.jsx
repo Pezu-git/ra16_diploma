@@ -15,11 +15,10 @@ import Footer from './components/Footer/Footer';
 import './css/style.css';
 import './App.css';
 
-
-
 function App() {
   return (
-    <>
+    <Provider store={store}>
+      <Router>
         <Header />
         <main className="container">
           <div className="row">
@@ -38,8 +37,8 @@ function App() {
           </div>
         </main>
         <Footer />
-        </>
-      
+      </Router>
+    </Provider>
   );
 }
 

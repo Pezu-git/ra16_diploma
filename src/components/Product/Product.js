@@ -15,6 +15,7 @@ import { cartAddPosition } from '../../actions/cartAction';
 import { orderInit } from '../../actions/orderAction';
 
 export default function Product(props) {
+  console.log(props)
   const { match } = props;
   const history = useHistory();
   const productState = useSelector((state) => state.productReducer);
