@@ -5,7 +5,6 @@ import cn from 'classnames';
 import { useSelector, useDispatch } from 'react-redux';
 import { activeCategory } from '../../actions/categoriesAction';
 import { useHistory } from 'react-router';
-import { findCategoryName, findCategoryId } from '../../helpFunction.js/helpFunction';
 var qs = require('qs');
 
 
@@ -15,18 +14,17 @@ export default function Categories(props) {
   const dispatch = useDispatch();
   const history = useHistory();
   const parsed = qs.parse(history.location.search.substr(1));
-  const searchCategory = parsed.category !== undefined ? findCategoryId(parsed.category) : 0;
+  const searchCategory = parsed.category !== undefined ? Number(parsed.category) : 0;
   const searchValue = parsed.query !== undefined ? parsed.query : '';
   
   const onCategoryChange = (event, id) => {
     event.preventDefault();
-    localStorage.setItem('category', JSON.stringify(categoriesState.categoriesData))
     dispatch(activeCategory(id));
     onChange(id);
    
     history.push({
       pathname: '/catalog',
-      search: `?query=${searchValue}&category=${findCategoryName(id)}`
+      search: `?query=${searchValue}&category=${id}`
     })  
     
   };

@@ -5,7 +5,6 @@ import classnames from 'classnames';
 import logo from '../../img/header-logo.png';
 import { activeCategory } from '../../actions/categoriesAction';
 import { searchTextStatus } from '../../actions/searchAction';
-import { findCategoryName } from '../../helpFunction.js/helpFunction';
 
 const DEFAULT_FORM_VALUE = {
   search: '',
@@ -13,6 +12,7 @@ const DEFAULT_FORM_VALUE = {
 
 export default function Header() {
   const cartState = useSelector((state) => state.cartReducer);
+  const categoriesState = useSelector((state) => state.categoriesReducer);
   const dispatch = useDispatch();
   const [searchVisible, setSearchVisible] = useState(true);
   const [form, setForm] = useState(DEFAULT_FORM_VALUE);
@@ -31,7 +31,7 @@ export default function Header() {
       setForm(DEFAULT_FORM_VALUE);
       history.push({
         pathname: `/catalog`,
-        search: `?query=${form.search}&category=${findCategoryName(0)}`
+        search: `?query=${form.search}&category=${categoriesState.activeCategory}`
       })
       setSearchVisible(false);
     } else setSearchVisible(!searchVisible);

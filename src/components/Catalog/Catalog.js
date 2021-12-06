@@ -10,7 +10,6 @@ import { catalogRequest } from '../../actions/catalogAction';
 import { catalogAndCategoriesRequest } from '../../actions/categoriesAction';
 import { searchTextStatus } from '../../actions/searchAction';
 import { useHistory } from 'react-router-dom';
-import { findCategoryId } from '../../helpFunction.js/helpFunction';
 var qs = require('qs');
 
 export default function Catalog(props) {
@@ -37,16 +36,15 @@ export default function Catalog(props) {
       dispatch(searchTextStatus(parsed.query, true));
     } 
     if(parsed.category !== undefined && parsed.category !== '') {
-      getCatalogAndCategories(findCategoryId(parsed.category));
+      getCatalogAndCategories(Number(parsed.category));
     } else {
       getCatalogAndCategories(0);
     }    
   }, [dispatch]);
 
   useEffect(() => {
-    console.log(searchState.searchStatus)
     if (searchState.searchStatus) {
-        getCatalog(findCategoryId(parsed.category));
+        getCatalog(Number(parsed.category));
         dispatch(searchTextStatus(parsed.query, false)); 
     }
   }, [searchState.searchStatus]);

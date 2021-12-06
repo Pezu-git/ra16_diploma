@@ -2,7 +2,6 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { searchFieldChange, searchTextStatus } from '../../actions/searchAction';
 import { useHistory } from 'react-router-dom';
-import { findCategoryName } from '../../helpFunction.js/helpFunction';
 var qs = require('qs');
 
 
@@ -18,7 +17,7 @@ export default function SearchForm() {
     dispatch(searchFieldChange(name, value));  
     history.push({
       pathname: '/catalog',
-      search: `?query=${value}&category=${findCategoryName(categoriesState.activeCategory)}`
+      search: `?query=${value}&category=${categoriesState.activeCategory}`
     })
   };
 
