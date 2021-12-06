@@ -10,6 +10,7 @@ import { catalogRequest } from '../../actions/catalogAction';
 import { catalogAndCategoriesRequest } from '../../actions/categoriesAction';
 import { searchTextStatus } from '../../actions/searchAction';
 import { useHistory } from 'react-router-dom';
+import { findCategoryId } from '../../helpFunction.js/helpFunction';
 var qs = require('qs');
 
 export default function Catalog(props) {
@@ -30,20 +31,13 @@ export default function Catalog(props) {
   async function getCatalogAndCategories(categoryId, offset = 0) {
     dispatch(catalogAndCategoriesRequest(searchText, categoryId, offset));
   }
-  
-  // function findCatId(a) {
-  //   let s = categoriesData.find((o) => o.title === a)
-  //     if (s !== undefined) {
-  //       return s.id
-  //     } 
-  // };
 
   useEffect(() => {   
-    if(parsed.query!==undefined && parsed.query!=='') {
+    if(parsed.query !== undefined && parsed.query !== '') {
       dispatch(searchTextStatus(parsed.query, true));
     } 
-    if(parsed.category!==undefined && parsed.category!=='') {
-      getCatalogAndCategories(Number(parsed.category));
+    if(parsed.category !== undefined && parsed.category !== '') {
+      getCatalogAndCategories(findCategoryId(parsed.category));
     } else {
       getCatalogAndCategories(0);
     }    
@@ -51,7 +45,7 @@ export default function Catalog(props) {
 
   useEffect(() => {
     if (searchState.searchStatus) {
-        getCatalog(parsed.category);
+        getCatalog(findCategoryId(parsed.category));
         dispatch(searchTextStatus(parsed.query, false)); 
     }
   }, [searchState.searchStatus]);
