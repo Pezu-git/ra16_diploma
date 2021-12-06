@@ -44,6 +44,7 @@ export default function Catalog(props) {
   }, [dispatch]);
 
   useEffect(() => {
+    console.log(searchState.searchStatus)
     if (searchState.searchStatus) {
         getCatalog(findCategoryId(parsed.category));
         dispatch(searchTextStatus(parsed.query, false)); 
