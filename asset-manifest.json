@@ -1,0 +1,24 @@
+{
+  "files": {
+    "main.css": "/ra16_diploma/static/css/main.3d331cb9.chunk.css",
+    "main.js": "/ra16_diploma/static/js/main.bc230468.chunk.js",
+    "main.js.map": "/ra16_diploma/static/js/main.bc230468.chunk.js.map",
+    "runtime-main.js": "/ra16_diploma/static/js/runtime-main.9d813a53.js",
+    "runtime-main.js.map": "/ra16_diploma/static/js/runtime-main.9d813a53.js.map",
+    "static/js/2.d75a4a8b.chunk.js": "/ra16_diploma/static/js/2.d75a4a8b.chunk.js",
+    "static/js/2.d75a4a8b.chunk.js.map": "/ra16_diploma/static/js/2.d75a4a8b.chunk.js.map",
+    "static/js/3.3178075a.chunk.js": "/ra16_diploma/static/js/3.3178075a.chunk.js",
+    "static/js/3.3178075a.chunk.js.map": "/ra16_diploma/static/js/3.3178075a.chunk.js.map",
+    "index.html": "/ra16_diploma/index.html",
+    "static/css/main.3d331cb9.chunk.css.map": "/ra16_diploma/static/css/main.3d331cb9.chunk.css.map",
+    "static/js/2.d75a4a8b.chunk.js.LICENSE.txt": "/ra16_diploma/static/js/2.d75a4a8b.chunk.js.LICENSE.txt",
+    "static/media/banner.5fd2c60d.jpg": "/ra16_diploma/static/media/banner.5fd2c60d.jpg",
+    "static/media/style.css": "/ra16_diploma/static/media/footer-sprite.b3d5697a.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.9d813a53.js",
+    "static/js/2.d75a4a8b.chunk.js",
+    "static/css/main.3d331cb9.chunk.css",
+    "static/js/main.bc230468.chunk.js"
+  ]
+}
