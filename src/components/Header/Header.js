@@ -17,7 +17,6 @@ export default function Header() {
   const [searchVisible, setSearchVisible] = useState(true);
   const [form, setForm] = useState(DEFAULT_FORM_VALUE);
   const history = useHistory();
-
   
   const searchVisibleClass = classnames({
     'form-inline': true,
