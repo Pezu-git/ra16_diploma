@@ -5,7 +5,6 @@ import noimagesplash from '../../img/no-image-icon-23487.png';
 
 export default function Card(props) {
   const { data } = props;
-
   const onImageError = (event) => {
     const e = event;
     e.target.src = noimagesplash;

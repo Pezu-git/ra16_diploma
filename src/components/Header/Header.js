@@ -5,6 +5,7 @@ import classnames from 'classnames';
 import logo from '../../img/header-logo.png';
 import { activeCategory } from '../../actions/categoriesAction';
 import { searchTextStatus } from '../../actions/searchAction';
+import { findCategoryName } from '../../helpFunction.js/helpFunction';
 
 const DEFAULT_FORM_VALUE = {
   search: '',
@@ -17,6 +18,7 @@ export default function Header() {
   const [form, setForm] = useState(DEFAULT_FORM_VALUE);
   const history = useHistory();
 
+  
   const searchVisibleClass = classnames({
     'form-inline': true,
     invisible: searchVisible,
@@ -28,7 +30,10 @@ export default function Header() {
       dispatch(activeCategory(0));
       dispatch(searchTextStatus(form.search, true));
       setForm(DEFAULT_FORM_VALUE);
-      history.push('/catalog');
+      history.push({
+        pathname: `/catalog`,
+        search: `?query=${form.search}&category=${findCategoryName(0)}`
+      })
       setSearchVisible(false);
     } else setSearchVisible(!searchVisible);
   };
@@ -52,7 +57,7 @@ export default function Header() {
                   <NavLink className="nav-link" exact to="/">Главная</NavLink>
                 </li>
                 <li className="nav-item">
-                  <NavLink className="nav-link" to="/catalog">Каталог</NavLink>
+                  <NavLink className="nav-link" to={`/catalog`}>Каталог</NavLink>
                 </li>
                 <li className="nav-item">
                   <NavLink className="nav-link" to="/about">О магазине</NavLink>

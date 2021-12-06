@@ -1,33 +1,35 @@
-import React, {useState} from 'react';
+import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { searchFieldChange, searchTextStatus } from '../../actions/searchAction';
-import { useLocationField } from 'react-location-query';
-import { useHistory } from 'react-router';
+import { useHistory } from 'react-router-dom';
+import { findCategoryName } from '../../helpFunction.js/helpFunction';
 var qs = require('qs');
 
+
 export default function SearchForm() {
-  const searchState = useSelector((state) => state.searchReducer);
+  const categoriesState = useSelector((state) => state.categoriesReducer);
   const dispatch = useDispatch();
-  const [querys, setQuery] = useLocationField('query', searchState.search);
-  // const history = useHistory();
-  // const parsed = qs.parse(history.location.search.substr(1))
+  const history = useHistory();
+  const parsed = qs.parse(history.location.search.substr(1))
+  const searchValue = parsed.query !== undefined ? parsed.query : '';
+
   const onInputChange = (event) => {
-    setQuery(event.target.value)
     const { name, value } = event.target;
-    dispatch(searchFieldChange(name, value));
+    dispatch(searchFieldChange(name, value));  
+    history.push({
+      pathname: '/catalog',
+      search: `?query=${value}&category=${findCategoryName(categoriesState.activeCategory)}`
+    })
   };
 
   const onSubmit = (event) => {
     event.preventDefault();
-    
-    dispatch(searchTextStatus(querys, true));
-    
-    // setQuery(event.target.value)
+    dispatch(searchTextStatus(searchValue, true));
   };
 
   return (
     <form className="catalog-search-form form-inline" onSubmit={onSubmit}>
-      <input className="form-control" name="search" placeholder="Поиск" value={querys} onChange={onInputChange} />
+      <input className="form-control" name="search" placeholder="Поиск" value={searchValue} onChange={onInputChange} />
     </form>
   );
 }
